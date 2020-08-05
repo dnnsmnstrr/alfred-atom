@@ -90,6 +90,7 @@ export class Icons {
         await fs.ensureDir(path.join(__dirname, "icons"));
 
         let sharpTasks: Promise<sharp.OutputInfo>[];
+        sharpTasks = []
 
         for (const [name, icon] of icons) {
             // Add fill to SVG path
@@ -104,7 +105,8 @@ export class Icons {
                     .toFile(path.join(iconPath, `${name}.png`))
             );
         }
-
-        await Promise.all(sharpTasks);
+        if (sharpTasks.length > 0) {
+            await Promise.all(sharpTasks);
+        }
     }
 }
